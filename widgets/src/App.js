@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Accordion from './components/Accordion';
 import Search from './components/Search';
-import 'semantic-ui-css/semantic.min.css'
+import 'semantic-ui-css/semantic.min.css';
+import DropDown from './components/Dropdown';
 
 const items =[
     {
@@ -17,9 +18,38 @@ const items =[
         content:'You use React by craeting components'
     }
 ]
+
+const options =[
+    {
+        label: 'The Color Red',
+        value: 'red'
+   },
+    {
+        label: 'The Color Green',
+        value: 'green'
+   },
+    {
+        label: 'The Color Blue',
+        value: 'blue'
+   }
+]
+
 export default () => {
+    const [selected, setSelected] = useState(options[0]);
+    const [showDropdown, setShowDropdown] = useState(true);
+
     return (
        // <Accordion items={items} />
-       <Search />
+       <div>
+        <button onClick={() => setShowDropdown(!showDropdown)}> Toggle Dropdown </button>
+        {showDropdown ?
+            <DropDown 
+            selected={selected}
+            onSelectedChange={setSelected}
+            options={options}
+            /> : null
+        }
+       </div>
        ); 
     };
+    
